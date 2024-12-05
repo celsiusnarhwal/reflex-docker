@@ -8,6 +8,7 @@ COPY . .
 
 RUN uv sync
 
-RUN uv run reflex export --frontend-only --no-zip
+ARG API_URL
+RUN API_URL=${API_URL} uv run reflex export --frontend-only --no-zip
 
-CMD caddy start && uv run reflex run --env prod --backend-only
+CMD caddy start && uv run reflex run --env prod  --backend-only
