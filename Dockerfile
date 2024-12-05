@@ -12,7 +12,7 @@ RUN uv sync
 ARG RAILWAY_SERVICE_ID
 ARG API_URL=http://localhost:8080/api
 ARG CACHE_DIR=/root/.bun/install/cache
-RUN --mount=type=cache,id=s/${RAILWAY_SERVICE_ID}-${CACHE_DIR},target=${CACHE_DIR} API_URL=${API_URL}  \
+RUN --mount=type=cache,id=s/e1998798-f088-405d-8e1f-742dfc53bfd7-${CACHE_DIR},target=${CACHE_DIR} API_URL=${API_URL}  \
     uv run reflex export --frontend-only --no-zip
 
 STOPSIGNAL SIGKILL
