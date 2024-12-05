@@ -9,7 +9,7 @@ COPY . .
 RUN uv sync
 
 
-ARG RAILWAY_SERVICE_ID
+ARG RAILWAY_SERVICE_ID=e1998798-f088-405d-8e1f-742dfc53bfd7
 ARG API_URL=http://localhost:8080/api
 ARG CACHE_DIR=/root/.bun/install/cache
 ARG CACHE_ID=s/${RAILWAY_SERVICE_ID}-${CACHE_DIR}
