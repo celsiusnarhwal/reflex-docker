@@ -12,6 +12,6 @@ COPY . .
 
 RUN uv sync
 
-RUN uv run reflex export --frontend-only --no-zip
+RUN #uv run reflex export --frontend-only --no-zip
 
 CMD caddy start && redis-server --daemonize yes && uv run reflex run --env prod
