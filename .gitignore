@@ -298,3 +298,5 @@ cython_debug/
 #.idea/
 
 .pdm-build/
+!.web/bun.lockb
+!.web/package.json
