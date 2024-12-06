@@ -29,7 +29,7 @@ def index() -> rx.Component:
                 is_external=True,
             ),
             icons.fa("house"),
-            icons.fa.regular("user"),
+            # icons.fa.regular("user"),
             spacing="5",
             justify="center",
             min_height="85vh",
