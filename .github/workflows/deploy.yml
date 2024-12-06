@@ -45,7 +45,6 @@ jobs:
 
       - name: Export Frontend
         run: |
-#          export BUN_PATH=$(which bun)
           bun install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
