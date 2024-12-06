@@ -6,7 +6,7 @@ WORKDIR /app/
 
 COPY . .
 
-RUN uv sync && unzip frontend.zip -d srv
+RUN uv sync && unzip frontend.zip -d srv && rm frontend.zip
 
 STOPSIGNAL SIGKILL
 

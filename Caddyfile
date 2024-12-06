@@ -1,14 +1,13 @@
 :8080
 
+handle_path /api/* {
+    reverse_proxy localhost:8000
+}
+
+redir /api /api/
+
 root srv
-
 route {
-    handle_path /api/* {
-        reverse_proxy localhost:8000
-    }
-
-    redir /api /api/
-
     try_files {path} 404.html
     file_server
 }
