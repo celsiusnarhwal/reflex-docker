@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      REFLEX_LOG_LEVEL: debug
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
@@ -25,18 +24,24 @@ jobs:
       - name: Install Dependencies
         run: uv sync
 
-      - name: Set Up Bun Cache
+      - name: Bun Cache I
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun
+          restore-keys: |
+            ${{ runner.os }}-bun
+
+      - name: Export Frontend
+        run: uv run reflex export --frontend-only --loglevel debug
+        env:
+          API_URL: https://reflex.celsiusnarhwal.dev/api
+
+      - name: Bun Cache II
         uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
-
-      - name: Export Frontend
-        run: | 
-          uv run reflex export --frontend-only --loglevel debug
-        env:
-          API_URL: https://reflex.celsiusnarhwal.dev/api
-
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
