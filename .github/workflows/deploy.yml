@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    steps:
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+
+      - name: Set Up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: 0.5.x
+          enable-cache: true
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Get API URL
+        run: echo API_URL=$(npx @railway/cli variables -s app --json | jq .API_URL) >> ${GITHUB_ENV}
+
+      - name: Export Frontend
+        run: reflex export --frontend-only --no-zip
+        env:
+          API_URL: ${{ env.API_URL }}
+
+      - name: Set Up Bun Cache
+        run: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          run: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb')
+
+      - name: Deploy to Railway
+        run: npx @railway/cli up -s app

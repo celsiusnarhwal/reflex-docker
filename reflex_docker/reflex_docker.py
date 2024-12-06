@@ -3,6 +3,7 @@
 import reflex as rx
 
 from rxconfig import config
+import RIL as icons
 
 
 class State(rx.State):
@@ -27,6 +28,7 @@ def index() -> rx.Component:
                 href="https://reflex.dev/docs/getting-started/introduction/",
                 is_external=True,
             ),
+            icons.fa("house"),
             spacing="5",
             justify="center",
             min_height="85vh",

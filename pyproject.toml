@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "reflex-icon-library>=1.3.1",
     "reflex>=0.6.6.post2",
 ]
 
