@@ -34,7 +34,7 @@ jobs:
 
           gha.set_env("BUN_PATH", get_config().bun_path)
 
-      - name: Restore Bun Cache
+      - name: Restore Reflex Cache
         uses: actions/cache/restore@v4
         with:
           path: .web
@@ -46,11 +46,11 @@ jobs:
           API_URL: https://reflex.celsiusnarhwal.dev/api
           FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
 
-      - name: Save Bun Cache
+      - name: Save Reflex Cache
         uses: actions/cache/save@v4
         with:
           path: .web
-          key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
+          key: ${{ runner.os }}-reflex-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
