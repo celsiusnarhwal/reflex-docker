@@ -26,16 +26,13 @@ jobs:
       - name: Install Dependencies
         run: uv sync
 
-#      - name: Initliaze Reflex
-#        run: uv run reflex init
+      - name: Set Bun Path
+        shell: uv run --with github-action-utils python {0}
+        run: |
+          import github_action_utils as gha
+          from reflex.config import get_config
 
-#      - name: Set Bun Path
-#        shell: uv run --with github-action-utils python {0}
-#        run: |
-#          import github_action_utils as gha
-#          from reflex.config import get_config
-#
-#          gha.add_system_path(get_config().bun_path.parent)
+          gha.add_system_path(get_config().bun_path.parent)
 
       - name: Restore Bun Cache
         uses: actions/cache/restore@v4
@@ -45,7 +42,7 @@ jobs:
 
       - name: Export Frontend
         run: |
-          export BUN_PATH=$(which bun)
+          uv run reflex init 
           bun install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
