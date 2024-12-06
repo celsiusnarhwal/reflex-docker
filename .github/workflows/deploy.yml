@@ -20,9 +20,6 @@ jobs:
           version: 0.5.x
           enable-cache: true
 
-      - name: Set Up Bun
-        uses: oven-sh/setup-bun@v2
-
       - name: Install Dependencies
         run: uv sync
 
