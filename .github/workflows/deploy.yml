@@ -50,7 +50,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .web
-          key: ${{ runner.os }}-reflex-${{ hashFiles('.web/bun.lockb') }}
+          key: ${{ runner.os }}-reflex-${{ github.workflow.run_id }}
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
