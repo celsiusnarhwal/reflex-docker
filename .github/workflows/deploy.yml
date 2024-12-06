@@ -31,11 +31,10 @@ jobs:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
-      - name: Get API URL
-        run: echo API_URL=$(npx @railway/cli variables -s app --json | jq -r .API_URL) >> ${GITHUB_ENV}
-
       - name: Export Frontend
-        run: uv run reflex export --frontend-only --no-zip && ls .web/_static
+        run: uv run reflex export --frontend-only --no-zip --loglevel debug && ls .web/_static
+        env:
+          API_URL: https://reflex.celsiusnarhwal.dev/api
 
 
       - name: Deploy to Railway
