@@ -34,7 +34,7 @@ jobs:
       - name: Export Frontend
         run: | 
           uv run reflex export --frontend-only --no-zip --loglevel debug
-          mv .web/_static/* srv/
+          mkdir srv; mv .web/_static srv/
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
 
