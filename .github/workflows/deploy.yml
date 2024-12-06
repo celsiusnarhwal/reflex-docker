@@ -20,13 +20,10 @@ jobs:
           version: 0.5.x
           enable-cache: true
 
-      - name: Set Up Bun
-        uses: oven-sh/setup-bun@v2
-
       - name: Install Dependencies
         run: uv sync
 
-      - name: Set Bun Path
+      - name: Add Bun to System Path
         shell: uv run --with github-action-utils python {0}
         run: |
           import github_action_utils as gha
