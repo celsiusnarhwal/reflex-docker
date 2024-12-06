@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Export Frontend
-        run: bun install --cwd .web --frozen-lockfile || uv run reflex export --frontend-only --loglevel debug
+        run: bun install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
           REFLEX_USE_SYSTEM_BUN: true
