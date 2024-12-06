@@ -38,7 +38,7 @@ jobs:
         run: bun install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
-          REFLEX_USE_SYSTEM_BUN: true
+#          REFLEX_USE_SYSTEM_BUN: true
 
       - name: Save Bun Cache
         uses: actions/cache/save@v4
