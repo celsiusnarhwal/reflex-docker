@@ -10,4 +10,4 @@ RUN uv sync
 
 STOPSIGNAL SIGKILL
 
-CMD caddy start && uv run reflex run --env prod --backend-only
+CMD ls .web caddy start && uv run reflex run --env prod --backend-only
