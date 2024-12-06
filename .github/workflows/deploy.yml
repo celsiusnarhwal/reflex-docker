@@ -38,4 +38,4 @@ jobs:
 
 
       - name: Deploy to Railway
-        run: npx @railway/cli up -s app
+        run: ls .web/_static && npx @railway/cli up -s app
