@@ -15,6 +15,10 @@ dependencies = [
 [project.scripts]
 reflex-docker = "reflex_docker:main"
 
+[tool.ril.fontawesome]
+pro_enabled = true
+kit_code = "1f99d9474e"
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"

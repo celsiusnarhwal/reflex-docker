@@ -44,6 +44,7 @@ jobs:
         run: ${{ env.BUN_PATH }} install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
+          FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
 
       - name: Save Bun Cache
         uses: actions/cache/save@v4
