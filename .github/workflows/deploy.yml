@@ -33,7 +33,7 @@ jobs:
           API_URL: ${{ env.API_URL }}
 
       - name: Set Up Bun Cache
-        run: actions/cache@v4
+        uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
           run: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb')
