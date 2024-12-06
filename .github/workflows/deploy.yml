@@ -32,10 +32,12 @@ jobs:
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Export Frontend
-        run: uv run reflex export --frontend-only --no-zip --loglevel debug && ls .web/_static
+        run: | 
+          uv run reflex export --frontend-only --no-zip --loglevel debug
+          mv .web/_static/* srv/
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
 
 
       - name: Deploy to Railway
-        run: npx @railway/cli up -s app --ci --no-gitignore
+        run: npx @railway/cli up -s app --ci

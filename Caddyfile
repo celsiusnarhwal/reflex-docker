@@ -1,6 +1,6 @@
 :8080
 
-root .web/_static
+root srv
 
 route {
     handle_path /api/* {
