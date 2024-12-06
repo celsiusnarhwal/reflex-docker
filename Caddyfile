@@ -1,6 +1,6 @@
 :8080
 
-redir /api /api*
+redir /api /api/
 handle_path /api/* {
 	reverse_proxy localhost:8000
 }
