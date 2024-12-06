@@ -6,8 +6,8 @@ WORKDIR /app/
 
 COPY . .
 
-RUN uv sync
+RUN uv sync && unzip frontend.zip -d srv
 
 STOPSIGNAL SIGKILL
 
-CMD ls .web caddy start && uv run reflex run --env prod --backend-only
+CMD caddy start && uv run reflex run --env prod --backend-only
