@@ -24,21 +24,19 @@ jobs:
       - name: Install Dependencies
         run: uv sync
 
-      - name: Bun Cache I
-        uses: actions/cache@v4
+      - name: Restore Bun Cache
+        uses: actions/cache/restore@v4
         with:
           path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun
-          restore-keys: |
-            ${{ runner.os }}-bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Export Frontend
         run: uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
 
-      - name: Bun Cache II
-        uses: actions/cache@v4
+      - name: Save Bun Cache
+        uses: actions/cache/save@v4
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
