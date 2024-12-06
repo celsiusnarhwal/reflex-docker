@@ -29,7 +29,7 @@ jobs:
         run: uv run reflex init
 
       - name: Get Bun Path
-        shell: echo {0} | uv run --with github-action-utils -
+        shell: uv run --with github-action-utils {0}
         run: |
           import github_action_utils as gha
           from reflex.config import get_config()
