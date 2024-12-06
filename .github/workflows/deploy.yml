@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      REFLEX_LOG_LEVEL: debug
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
@@ -28,7 +29,7 @@ jobs:
         run: echo API_URL=$(npx @railway/cli variables -s app --json | jq -r .API_URL) >> ${GITHUB_ENV}
 
       - name: Export Frontend
-        run: uv run reflex export --frontend-only --no-zip --loglevel debug
+        run: uv run reflex export --frontend-only --no-zip
 
       - name: Set Up Bun Cache
         uses: actions/cache@v4

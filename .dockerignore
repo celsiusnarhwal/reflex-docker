@@ -1,4 +1,4 @@
-.*
+#.*
 requirements.txt
 !.python-version
 !.web/_static/
