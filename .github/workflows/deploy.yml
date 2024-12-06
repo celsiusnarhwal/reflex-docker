@@ -28,7 +28,7 @@ jobs:
         run: echo API_URL=$(npx @railway/cli variables -s app --json | jq .API_URL) >> ${GITHUB_ENV}
 
       - name: Export Frontend
-        run: reflex export --frontend-only --no-zip
+        run: uv run reflex export --frontend-only --no-zip
         env:
           API_URL: ${{ env.API_URL }}
 
