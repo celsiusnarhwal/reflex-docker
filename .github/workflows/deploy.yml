@@ -37,10 +37,7 @@ jobs:
       - name: Restore Bun Cache
         uses: actions/cache/restore@v4
         with:
-          path: |
-            .web/node_modules
-            .web/bun.lockb
-            .web/package.json
+          path: .web
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Export Frontend
@@ -51,10 +48,7 @@ jobs:
       - name: Save Bun Cache
         uses: actions/cache/save@v4
         with:
-          path: |
-            .web/node_modules
-            .web/bun.lockb
-            .web/package.json
+          path: .web
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Deploy to Railway
