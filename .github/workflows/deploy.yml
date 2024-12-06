@@ -24,7 +24,10 @@ jobs:
         run: uv sync
 
       - name: Export Frontend
-        uses: celsiusnarhwal/tailnet-link@main
+        uses: celsiusnarhwal/reflex-export@main
+        with:
+          args: --frontend-only --loglevel debug
+
 #      - name: Initialize Reflex
 #        run: uv run reflex init
 #
