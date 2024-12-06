@@ -10,8 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
@@ -29,15 +27,12 @@ jobs:
         run: uv sync
 
       - name: Set Bun Path
-        run: echo BUN_PATH=$(which bun) >> ${GITHUB_ENV}
+        shell: uv run --with github-action-utils python {0}
+        run: |
+          import github_action_utils as gha
+          from reflex.config import get_config
 
-#      - name: Get Bun Path
-#        shell: uv run --with github-action-utils python {0}
-#        run: |
-#          import github_action_utils as gha
-#          from reflex.config import get_config
-#
-#          gha.set_env("BUN_PATH", get_config().bun_path)
+          gha.set_path(get_config().bun_path.parent)
 
       - name: Restore Bun Cache
         uses: actions/cache/restore@v4
@@ -59,3 +54,5 @@ jobs:
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
