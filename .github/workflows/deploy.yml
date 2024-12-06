@@ -23,34 +23,39 @@ jobs:
       - name: Install Dependencies
         run: uv sync
 
-      - name: Initialize Reflex
-        run: uv run reflex init
-
-      - name: Get Bun Path
-        shell: uv run --with github-action-utils python {0}
-        run: |
-          import github_action_utils as gha
-          from reflex.config import get_config
-
-          gha.set_env("BUN_PATH", get_config().bun_path)
-
-      - name: Restore Reflex Cache
-        uses: actions/cache/restore@v4
-        with:
-          path: .web
-          key: ${{ runner.os }}-reflex-
-
       - name: Export Frontend
-        run: ${{ env.BUN_PATH }} install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
-        env:
-          API_URL: https://reflex.celsiusnarhwal.dev/api
-          FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
-
-      - name: Save Reflex Cache
-        uses: actions/cache/save@v4
+        uses: celsiusnarhwal/reflex-export@main
         with:
-          path: .web
-          key: ${{ runner.os }}-reflex-${{ hashFiles('.web/bun.lockb') }}
+          args: --frontend-only --loglevel debug
+
+#      - name: Initialize Reflex
+#        run: uv run reflex init
+#
+#      - name: Get Bun Path
+#        shell: uv run --with github-action-utils python {0}
+#        run: |
+#          import github_action_utils as gha
+#          from reflex.config import get_config
+#
+#          gha.set_env("BUN_PATH", get_config().bun_path)
+#
+#      - name: Restore Reflex Cache
+#        uses: actions/cache/restore@v4
+#        with:
+#          path: .web
+#          key: ${{ runner.os }}-reflex-
+#
+#      - name: Export Frontend
+#        run: ${{ env.BUN_PATH }} install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
+#        env:
+#          API_URL: https://reflex.celsiusnarhwal.dev/api
+#          FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
+#
+#      - name: Save Reflex Cache
+#        uses: actions/cache/save@v4
+#        with:
+#          path: .web
+#          key: ${{ runner.os }}-reflex-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
