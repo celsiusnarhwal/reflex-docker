@@ -32,7 +32,7 @@ jobs:
         shell: uv run --with github-action-utils python {0}
         run: |
           import github_action_utils as gha
-          from reflex.config import get_config()
+          from reflex.config import get_config
           
           gha.set_env("BUN_PATH", get_config().bun_path)
 
