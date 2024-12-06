@@ -22,19 +22,22 @@ jobs:
           version: 0.5.x
           enable-cache: true
 
+      - name: Set Up Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Install Dependencies
         run: uv sync
 
-      - name: Initialize Reflex
-        run: uv run reflex init
+      - name: Set Bun Path
+        run: echo BUN_PATH=$(which bun) >> ${GITHUB_ENV}
 
-      - name: Get Bun Path
-        shell: uv run --with github-action-utils python {0}
-        run: |
-          import github_action_utils as gha
-          from reflex.config import get_config
-          
-          gha.set_env("BUN_PATH", get_config().bun_path)
+#      - name: Get Bun Path
+#        shell: uv run --with github-action-utils python {0}
+#        run: |
+#          import github_action_utils as gha
+#          from reflex.config import get_config
+#
+#          gha.set_env("BUN_PATH", get_config().bun_path)
 
       - name: Restore Bun Cache
         uses: actions/cache/restore@v4
@@ -43,9 +46,10 @@ jobs:
           key: ${{ runner.os }}-bun-${{ hashFiles('.web/bun.lockb') }}
 
       - name: Export Frontend
-        run: ${{ env.BUN_PATH }} install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
+        run: bun install --cwd .web --frozen-lockfile; uv run reflex export --frontend-only --loglevel debug
         env:
           API_URL: https://reflex.celsiusnarhwal.dev/api
+          REFLEX_USE_SYSTEM_BUN: true
 
       - name: Save Bun Cache
         uses: actions/cache/save@v4
