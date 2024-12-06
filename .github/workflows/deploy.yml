@@ -32,7 +32,7 @@ jobs:
           import github_action_utils as gha
           from reflex.config import get_config
 
-          gha.set_path(get_config().bun_path.parent)
+          gha.add_system_path(get_config().bun_path.parent)
 
       - name: Restore Bun Cache
         uses: actions/cache/restore@v4
