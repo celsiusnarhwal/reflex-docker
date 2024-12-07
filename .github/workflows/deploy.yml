@@ -22,7 +22,6 @@ jobs:
 
       - name: Install Dependencies
         run: uv sync
-        working-directory: repo
 
       - name: Export Frontend
         uses: celsiusnarhwal/reflex-export@main
