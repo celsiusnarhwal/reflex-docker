@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
-        with:
-          path: repo
 
       - name: Set Up uv
         uses: astral-sh/setup-uv@v3
@@ -30,7 +28,6 @@ jobs:
         uses: celsiusnarhwal/reflex-export@main
         with:
           args: --frontend-only --loglevel debug
-          project-root: repo
         env:
           FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
           API_URL: https://reflex.celsiusnarhwal.dev/api
