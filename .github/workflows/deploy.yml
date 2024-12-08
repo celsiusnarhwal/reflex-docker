@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
-        with:
-          path: repo
 
       - name: Set Up uv
         uses: astral-sh/setup-uv@v3
@@ -24,19 +22,16 @@ jobs:
 
       - name: Install Dependencies
         run: uv sync
-        working-directory: repo
 
       - name: Export Frontend
         uses: celsiusnarhwal/reflex-export@main
         with:
           args: --frontend-only
-          project-root: repo
         env:
           FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
           API_URL: https://reflex.celsiusnarhwal.dev/api
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
-        working-directory: repo
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
