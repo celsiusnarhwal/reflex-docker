@@ -30,11 +30,13 @@ jobs:
         uses: celsiusnarhwal/reflex-export@main
         with:
           args: --frontend-only
+          project-root: repo
         env:
           FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
           API_URL: https://reflex.celsiusnarhwal.dev/api
 
       - name: Deploy to Railway
         run: npx @railway/cli up -s app --ci
+        working-directory: repo
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
