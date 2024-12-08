@@ -26,7 +26,7 @@ jobs:
       - name: Export Frontend
         uses: celsiusnarhwal/reflex-export@main
         with:
-          args: --frontend-only --loglevel debug
+          args: --frontend-only
         env:
           FONTAWESOME_PACKAGE_TOKEN: ${{ secrets.FONTAWESOME_PACKAGE_TOKEN }}
           API_URL: https://reflex.celsiusnarhwal.dev/api
